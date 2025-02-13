@@ -4,6 +4,6 @@
 
 {% block content %} 
     <h1>Bienvenid@</h1>
-    <button>Sign In</button>
-    <button>Sign Up</button>
+    <a href="{{ url_for('auth.SignIn') }}"><button>Sign In</button></a>
+    <a href="{{ url_for('auth.SignUp') }}"><button>Sign Up</button></a>
 {% endblock %}

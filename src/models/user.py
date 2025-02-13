@@ -3,14 +3,13 @@ from database.db_postgresql import db
 class User(db.Model):
     __tablename__ = "users"  
 
-    user_id = db.Column(db.String, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)  
     nombre = db.Column(db.String, nullable=False)
     clave = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     fecha_nacimiento = db.Column(db.Date, nullable=False)
 
-    def __init__(self, user_id, nombre, clave, email, fecha_nacimiento):
-        self.user_id = user_id
+    def __init__(self, nombre, clave, email, fecha_nacimiento):
         self.nombre = nombre
         self.clave = clave
         self.email = email
@@ -20,6 +19,8 @@ class User(db.Model):
         return {
             "user_id": self.user_id,
             "nombre": self.nombre,
+            "password": self.clave,
             "email": self.email,
             "fecha_nacimiento": self.fecha_nacimiento.strftime("%Y-%m-%d")  
         }
+

@@ -1,1 +1,13 @@
-//Login del usuario
+{% extends 'layout.html' %}
+
+{% block title %} Sign In {% endblock %}
+
+{% block content %} 
+    <h1>Sign In</h1>
+    <form action="{{ url_for('auth.SignIn') }}" method="POST">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="clave" placeholder="Contraseña" required>
+        <button type="submit">SignIn</button>
+    </form>
+    
+{% endblock %}
