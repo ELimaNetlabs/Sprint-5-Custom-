@@ -45,4 +45,9 @@ def SignUp():
 
     return render_template("signup.html")
 
+@auth_bp.route('/logout')
+def LogOut():
+    aus.logout_user()
+    return render_template("index.html") 
+
 

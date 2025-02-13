@@ -6,6 +6,9 @@
     <title>RTC Editor - {% block title %}{% endblock %}</title>
 </head>
 <body>
+    {% if "user_id" in session %}
+        <a href="{{ url_for('auth.LogOut') }}"><button>Logout</button></a>
+    {% endif %}
     {% block content %}
     {% endblock %}
 </body>
