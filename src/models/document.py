@@ -10,7 +10,7 @@ class Document(db.Model):
     __tablename__ = "documents"
 
     doc_id = db.Column(db.Integer, primary_key=True, autoincrement=True) 
-    name = db.Column(db.String, nullable=False)
+    title = db.Column(db.String, nullable=False)
     creator_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)  
     content = db.Column(db.Text, default="")
 
@@ -20,15 +20,15 @@ class Document(db.Model):
     # Relación con colaboradores (Many-to-Many)
     collaborators = db.relationship("User", secondary=document_collaborators, backref="documents")
 
-    def __init__(self, name, creator_id, content=""):
-        self.name = name
+    def __init__(self, title, creator_id, content=""):
+        self.title = title
         self.creator_id = creator_id
         self.content = content
 
     def to_dict(self):
         return {
             "doc_id": self.doc_id,
-            "name": self.name,
+            "title": self.title,
             "creator_id": self.creator_id,
             "content": self.content,
             "collaborators": [user.user_id for user in self.collaborators]  # Lista de IDs de colaboradores

@@ -1,4 +1,3 @@
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask import session
 from database.db_postgresql import db
 from services import user_service as us

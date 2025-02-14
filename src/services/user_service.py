@@ -8,7 +8,7 @@ def get_all_users():
 def get_user_by_id(user_id):
     user = User.query.get(user_id)
     if user:
-        print(user.to_dict())
+        return user
 
 
 def get_user_by_email(email):

@@ -3,6 +3,27 @@
 {% block title %} Menu {% endblock %}
 
 {% block content %} 
-    //Se van a seleccionar los documentos que quiera editar 
-    //Van a estar divididos entre los de uno y el resto en los que participa el usuario
+    
+    <h1>Bienvenido al Menú</h1>
+    
+    <h2>Documentos:</h2>
+    <ul>
+        {% for document in documents %}
+            <li>
+                <strong>ID:</strong> {{ document.doc_id }} <br>
+                <strong>Nombre:</strong> {{ document.title }}
+                <br><br>
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>Colaboraciones:</h2>
+    <ul>
+        {% for document in dc %}
+            <li>
+                <strong>ID:</strong> {{ document.doc_id }} <br>
+                <strong>Nombre:</strong> {{ document.title }}
+                <br><br>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
