@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %} Documents {% endblock %}
+
+{% block content %} 
+    
+    <h1>Estos son los documentos que aceptan colaboradores:</h1>
+    <ul>
+        {% for document in documents %}
+            <li>
+                <strong>ID:</strong> {{ document.doc_id }} <br>
+                <strong>Nombre:</strong> {{ document.title }}
+                <br><br>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

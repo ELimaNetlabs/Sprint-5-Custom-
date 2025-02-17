@@ -4,8 +4,9 @@
 
 {% block content %} 
     
-    <h1>Bienvenido al Menú</h1>
-    
+    <h1>Bienvenid@ al Menú</h1>
+    <a href="{{ url_for('document.get_documents') }}"><button>Crear</button></a>
+    <a href="{{ url_for('document.get_documents') }}"><button>Colaborar</button></a>
     <h2>Documentos:</h2>
     <ul>
         {% for document in documents %}
