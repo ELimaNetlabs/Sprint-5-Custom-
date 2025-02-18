@@ -38,9 +38,33 @@ def get_docs_for_collab(user_id):
 
     return docs
 
-
-
-
+def create_doc(title, creator):
     
+    new_doc = Document(title=title, creator_id=creator)
+    db.session.add(new_doc)
+    db.session.commit()
+    return new_doc
 
+def update_doc(doc_id):
+    # Obtener el documento a actualizar
+    document = Document.query.get_or_404(doc_id)
 
+    # Obtener los datos del formulario
+    new_title = request.form.get("title")
+    new_content = request.form.get("content")
+
+    # Actualizar el documento con los nuevos datos
+    document.title = new_title
+    document.content = new_content
+
+    # Guardar los cambios en la base de datos
+    try:
+        db.session.commit()
+        flash("Documento actualizado correctamente.", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash("Error al actualizar el documento.", "danger")
+        print(f"Error: {e}")
+
+    # Redirigir al editor o a otra ruta, por ejemplo, al menú de documentos
+    return redirect(url_for("document.editor", doc_id=doc_id))

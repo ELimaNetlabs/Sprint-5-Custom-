@@ -17,16 +17,15 @@ def get_user_by_email(email):
         return user
 
 
-def create_user(name, email, password, date):
+def create_user(name, email, password):
     new_user = User(
         nombre=name,
         clave=password,
-        email=email,
-        fecha_nacimiento=datetime.strptime(date, "%Y-%m-%d")
+        email=email
     )
 
     db.session.add(new_user)
-    db.session.commit()  # Guarda en la base de datos
+    db.session.commit()  
 
     return new_user
 

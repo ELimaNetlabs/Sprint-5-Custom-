@@ -30,14 +30,13 @@ def SignUp():
         nombre = request.form["nombre"]
         email = request.form["email"]
         clave = request.form["clave"]
-        fecha_nacimiento = request.form["fecha_nacimiento"]
 
         # Verificar si el usuario ya existe
         if get_user_by_email(email):
             return render_template("signup.html")
 
         # Crear nuevo usuario
-        aus.SignUp(nombre, email, clave, fecha_nacimiento)
+        aus.SignUp(nombre, email, clave)
 
         # Guardar usuario en sesión y redirigir al menú
         session["user_id"] = get_user_by_email(email).user_id

@@ -2,8 +2,8 @@ from flask import session
 from database.db_postgresql import db
 from services import user_service as us
 
-def SignUp(name, email, password, date):
-    us.create_user(name, email, password, date)
+def SignUp(name, email, password):
+    us.create_user(name, email, password)
 
 def SignIn(email, password):
     user = us.get_user_by_email(email)

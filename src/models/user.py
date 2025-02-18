@@ -7,20 +7,17 @@ class User(db.Model):
     nombre = db.Column(db.String, nullable=False)
     clave = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
-    fecha_nacimiento = db.Column(db.Date, nullable=False)
 
-    def __init__(self, nombre, clave, email, fecha_nacimiento):
+    def __init__(self, nombre, clave, email):
         self.nombre = nombre
         self.clave = clave
         self.email = email
-        self.fecha_nacimiento = fecha_nacimiento
 
     def to_dict(self):
         return {
             "user_id": self.user_id,
             "nombre": self.nombre,
             "password": self.clave,
-            "email": self.email,
-            "fecha_nacimiento": self.fecha_nacimiento.strftime("%Y-%m-%d")  
+            "email": self.email 
         }
 
