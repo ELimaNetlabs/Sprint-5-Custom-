@@ -7,24 +7,51 @@
     <h1>Bienvenid@ al Menú</h1>
     <a href="{{ url_for('document.create_document') }}"><button>Crear</button></a>
     <a href="{{ url_for('document.get_documents') }}"><button>Colaborar</button></a>
-    <h2>Documentos:</h2>
-    <ul>
-        {% for document in documents %}
-            <li>
-                <strong>ID:</strong> {{ document.doc_id }} <br>
-                <strong>Nombre:</strong> {{ document.title }}
-                <br><br>
-            </li>
-        {% endfor %}
-    </ul>
-    <h2>Colaboraciones:</h2>
-    <ul>
-        {% for document in dc %}
-            <li>
-                <strong>ID:</strong> {{ document.doc_id }} <br>
-                <strong>Nombre:</strong> {{ document.title }}
-                <br><br>
-            </li>
-        {% endfor %}
-    </ul>
+    <br>
+    <br>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <thead>
+          <tr>
+            <th colspan="2" style="text-align:center; background-color: #f2f2f2;">Mis Documentos</th>
+          </tr>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for document in documents %}
+            <tr>
+              <td>{{ document.doc_id }}</td>
+              <td>{{ document.title }}</td>
+              <td><a href="{{ url_for('document.editor', doc_id=document.doc_id) }}">Editar</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+
+    <table border="1" cellspacing="0" cellpadding="5">
+        <thead>
+          <tr>
+            <th colspan="2" style="text-align:center; background-color: #f2f2f2;">Colaboraciones</th>
+          </tr>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for document in dc %}
+            <tr>
+              <td>{{ document.doc_id }}</td>
+              <td>{{ document.title }}</td>
+              <td><a href="{{ url_for('document.editor', doc_id=document.doc_id) }}">Editar</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+
+
 {% endblock %}

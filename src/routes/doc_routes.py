@@ -1,5 +1,5 @@
 from flask import Blueprint, request, session, render_template, redirect, url_for
-from services.doc_service import get_docs_for_collab, create_doc
+from services.doc_service import get_docs_for_collab, create_doc, update_doc,get_doc_by_id
 
 document_bp = Blueprint('document', __name__)
 
@@ -20,7 +20,12 @@ def create_document():
     
     return render_template("create_doc.html")
 
-@document_bp.route('/update', methods=["POST"])
-def update_doc(doc_id):
-    return 
-     
+@document_bp.route('/update/<int:doc_id>', methods=["POST"])
+def update_document(doc_id):
+    if update_doc(doc_id, request.form.get("title"), request.form.get("content")):
+        return redirect(url_for("user.menu"))
+    
+@document_bp.route('/editor/<int:doc_id>', methods=["GET"])
+def editor(doc_id):
+    document = get_doc_by_id(doc_id)
+    return render_template("editor.html", document=document)

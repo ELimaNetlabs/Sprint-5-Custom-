@@ -3,15 +3,26 @@
 {% block title %} Documents {% endblock %}
 
 {% block content %} 
-    
-    <h1>Estos son los documentos que aceptan colaboradores:</h1>
-    <ul>
-        {% for document in documents %}
-            <li>
-                <strong>ID:</strong> {{ document.doc_id }} <br>
-                <strong>Nombre:</strong> {{ document.title }}
-                <br><br>
-            </li>
-        {% endfor %}
-    </ul>
+    <br>
+    <br>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <thead>
+          <tr>
+            <th colspan="2" style="text-align:center; background-color: #f2f2f2;">Estos son los documentos que aceptan colaboradores</th>
+          </tr>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for document in documents %}
+            <tr>
+              <td>{{ document.doc_id }}</td>
+              <td>{{ document.title }}</td>
+              <td><a href="{{ url_for('document.editor', doc_id=document.doc_id) }}">Editar</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
