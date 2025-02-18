@@ -5,19 +5,16 @@
 {% block content %} 
     <h1>Editar Documento</h1>
     <form action="{{ url_for('document.update_doc') }}" method="POST">
-        <!-- Campo para el título -->
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" value="{{ document.title }}" required>
         </br>
         </br>
         
-        <!-- Campo para el contenido -->
         <label for="content">Contenido:</label>
         </br>
         <textarea id="content" name="content" rows="15" placeholder="Escribe aquí el contenido...">{{ document.content }}</textarea>
         </br>
         </br>
-        <!-- Botón para guardar cambios -->
         <button type="submit">Save</button>
     </form>        
 {% endblock %}

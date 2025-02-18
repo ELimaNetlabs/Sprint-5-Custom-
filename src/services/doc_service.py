@@ -24,16 +24,13 @@ def get_docs_collab(user_id):
 
 
 def get_docs_for_collab(user_id):
-    # Subquery para documentos donde el usuario es creador
     created_docs = db.session.query(Document.doc_id).filter(Document.creator_id == user_id)
 
-    # Subquery para documentos donde el usuario es colaborador
     collaborated_docs = db.session.query(document_collaborators.c.doc_id).filter(document_collaborators.c.user_id == user_id)
 
-    # Consulta principal: excluir documentos donde el usuario es creador o colaborador
     docs = db.session.query(Document).filter(
-        ~Document.doc_id.in_(created_docs),  # No ser creador
-        ~Document.doc_id.in_(collaborated_docs)  # No ser colaborador
+        ~Document.doc_id.in_(created_docs),  
+        ~Document.doc_id.in_(collaborated_docs)  
     ).all()
 
     return docs
