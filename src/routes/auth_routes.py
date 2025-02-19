@@ -18,11 +18,11 @@ def SignIn():
 
         if aus.SignIn(email, clave): 
             session["user_id"] = get_user_by_email(email).user_id
-            return redirect(url_for("user.menu"))  
+            return redirect(url_for("user.menu")) 
 
-        return render_template("signin.html")
+        return redirect(url_for("auth.Home"))  
 
-    return render_template("signin.html")
+    return redirect(url_for("auth.Home"))  
 
 @auth_bp.route('/signup', methods=["GET", "POST"])
 def SignUp(): 

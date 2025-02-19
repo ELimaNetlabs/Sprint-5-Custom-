@@ -51,3 +51,15 @@ def update_doc(doc_id, title, content):
     except Exception as e:
         db.session.rollback()
         return False
+    
+def collaborate(doc_id, user_id):
+    document = Document.query.get(doc_id)
+    user = User.query.get(user_id)
+
+    if document and user:
+        document.collaborators.append(user)
+        
+        db.session.commit()
+        return True
+    
+    return False

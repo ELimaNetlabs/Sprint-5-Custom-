@@ -20,7 +20,7 @@
             <tr>
               <td>{{ document.doc_id }}</td>
               <td>{{ document.title }}</td>
-              <td><a href="{{ url_for('document.editor', doc_id=document.doc_id) }}">Editar</a></td>
+              <td><a href="{{ url_for('document.collaborate_doc', doc_id=document.doc_id) }}">Collaborate</a></td>
             </tr>
           {% endfor %}
         </tbody>

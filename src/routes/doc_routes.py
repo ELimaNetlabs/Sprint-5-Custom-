@@ -1,5 +1,5 @@
 from flask import Blueprint, request, session, render_template, redirect, url_for
-from services.doc_service import get_docs_for_collab, create_doc, update_doc,get_doc_by_id
+from services.doc_service import get_docs_for_collab, create_doc, update_doc, get_doc_by_id, collaborate
 
 document_bp = Blueprint('document', __name__)
 
@@ -29,3 +29,9 @@ def update_document(doc_id):
 def editor(doc_id):
     document = get_doc_by_id(doc_id)
     return render_template("editor.html", document=document)
+
+@document_bp.route('/collaborate/<int:doc_id>', methods=["GET"])
+def collaborate_doc(doc_id):
+    if collaborate(doc_id, session['user_id']):
+        return redirect(url_for("user.menu"))
+    
