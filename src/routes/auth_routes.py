@@ -31,14 +31,11 @@ def SignUp():
         email = request.form["email"]
         clave = request.form["clave"]
 
-        # Verificar si el usuario ya existe
         if get_user_by_email(email):
             return render_template("signup.html")
 
-        # Crear nuevo usuario
         aus.SignUp(nombre, email, clave)
 
-        # Guardar usuario en sesión y redirigir al menú
         session["user_id"] = get_user_by_email(email).user_id
         return redirect(url_for("user.menu"))
 

@@ -3,20 +3,21 @@
 {% block title %} Menu {% endblock %}
 
 {% block content %} 
-    
+  
+
+  
     <h1>Bienvenid@ al Menú</h1>
-    <a href="{{ url_for('document.create_document') }}"><button>Crear</button></a>
-    <a href="{{ url_for('document.get_documents') }}"><button>Colaborar</button></a>
     <br>
     <br>
     <table border="1" cellspacing="0" cellpadding="5">
         <thead>
           <tr>
-            <th colspan="2" style="text-align:center; background-color: #f2f2f2;">Mis Documentos</th>
+            <th colspan="3" style="text-align:center; background-color: #f2f2f2;">My Docs</th>
           </tr>
           <tr>
             <th>ID</th>
-            <th>Nombre</th>
+            <th>Title</th>
+            <th>Creator</th>
           </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@
             <tr>
               <td>{{ document.doc_id }}</td>
               <td>{{ document.title }}</td>
+              <td>{{ document.creator_id }}</td>
               <td><a href="{{ url_for('document.editor', doc_id=document.doc_id) }}">Edit</a></td>
             </tr>
           {% endfor %}
@@ -35,11 +37,12 @@
     <table border="1" cellspacing="0" cellpadding="5">
         <thead>
           <tr>
-            <th colspan="2" style="text-align:center; background-color: #f2f2f2;">Colaboraciones</th>
+            <th colspan="3" style="text-align:center; background-color: #f2f2f2;">Collaborations</th>
           </tr>
           <tr>
             <th>ID</th>
-            <th>Nombre</th>
+            <th>Title</th>
+            <th>Creator</th>
           </tr>
         </thead>
         <tbody>
@@ -47,11 +50,12 @@
             <tr>
               <td>{{ document.doc_id }}</td>
               <td>{{ document.title }}</td>
+              <td>{{ document.creator_id }}</td>
               <td><a href="{{ url_for('document.editor', doc_id=document.doc_id) }}">Edit</a></td>
             </tr>
           {% endfor %}
         </tbody>
     </table>
-
+  
 
 {% endblock %}

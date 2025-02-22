@@ -12,9 +12,27 @@
         
         <label for="content">Contenido:</label>
         </br>
-        <textarea id="content" name="content" rows="15" placeholder="Escribe aquí el contenido...">{{ document.content }}</textarea>
+        <textarea id="content" name="content" rows="30" cols="100" placeholder="Escribe aquí el contenido...">{{ document.content }}</textarea>
         </br>
         </br>
         <button type="submit">Save</button>
-    </form>        
+    </form>     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+<script>
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+    var doc_id = "{{ document.doc_id }}";
+    socket.emit('join_document', {'doc_id': doc_id});
+
+    var contentArea = document.getElementById("content");
+
+    contentArea.addEventListener("input", function() {
+        socket.emit('edit_document', {'doc_id': doc_id, 'content': contentArea.value});
+    });
+
+    socket.on('update_document', function(data) {
+        contentArea.value = data.content;
+    });
+</script>
+   
 {% endblock %}
