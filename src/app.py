@@ -50,7 +50,7 @@ with app.app_context():
     db.create_all()
 
 if __name__ == "__main__":
-    socketio.run(app, host="192.168.100.153", port=5000, debug=True)
+    socketio.run(app, host="192.168.100.154", port=5000, debug=True)
 
 
 
