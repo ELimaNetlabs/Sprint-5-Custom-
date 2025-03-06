@@ -1,6 +1,8 @@
 from database.db_postgresql import db
+from datetime import datetime
 from models.document import Document, document_collaborators
 from models.user import User  
+from models.snapshot import Snapshot
 
 def get_all_docs():
     return Document.query.all()
@@ -42,6 +44,19 @@ def create_doc(title, creator):
 def update_doc(doc_id, title, content):
     document = get_doc_by_id(doc_id)
 
+    last_snapshot = Snapshot.query.filter_by(document_id=doc_id).order_by(Snapshot.version.desc()).first()
+
+    if not last_snapshot and len(content) >= 100:
+        first_snapshot = Snapshot(document_id=doc_id, content=content)
+        first_snapshot.version = 1  
+        db.session.add(first_snapshot)
+
+
+    elif last_snapshot and len(content) - len(last_snapshot.content) >= 100:
+        new_snapshot = Snapshot(document_id=doc_id, content=content)
+        new_snapshot.version = last_snapshot.version + 1
+        db.session.add(new_snapshot)
+
     document.title = title
     document.content = content
 
@@ -51,6 +66,8 @@ def update_doc(doc_id, title, content):
     except Exception as e:
         db.session.rollback()
         return False
+
+
     
 def collaborate(doc_id, user_id):
     document = Document.query.get(doc_id)

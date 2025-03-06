@@ -1,4 +1,6 @@
 from database.db_postgresql import db
+from models.snapshot import Snapshot  
+from datetime import datetime
 
 document_collaborators = db.Table(
     "document_collaborators",
@@ -14,11 +16,10 @@ class Document(db.Model):
     creator_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)  
     content = db.Column(db.Text, default="")
 
-    # Relación con el creador del documento
     creator = db.relationship("User", backref="created_documents")
-
-    # Relación con colaboradores (Many-to-Many)
     collaborators = db.relationship("User", secondary=document_collaborators, backref="documents")
+
+    snapshots = db.relationship("Snapshot", backref="document", lazy=True, cascade="all, delete-orphan")
 
     def __init__(self, title, creator_id, content=""):
         self.title = title
@@ -31,9 +32,6 @@ class Document(db.Model):
             "title": self.title,
             "creator_id": self.creator_id,
             "content": self.content,
-            "collaborators": [user.user_id for user in self.collaborators]  # Lista de IDs de colaboradores
+            "collaborators": [user.user_id for user in self.collaborators],
+            "snapshots": [snapshot.to_dict() for snapshot in self.snapshots]
         }
-
-
-
-

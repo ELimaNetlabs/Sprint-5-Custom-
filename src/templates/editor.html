@@ -4,34 +4,16 @@
     
 {% block content %} 
     <h1>Editar Documento</h1>
-   
+
     <label for="title">Title:</label>
     <input type="text" id="title" name="title" value="{{ document.title }}" required>
-    </br>
-    </br>
-        
+    </br></br>
+
     <label for="content">Contenido:</label>
     </br>
-    <textarea id="content" name="content" rows="30" cols="100" placeholder="Escribe aquí el contenido...">{{ document.content }}</textarea>
-    
- 
-    
+    <textarea id="content" name="content" rows="30" cols="100" 
+              placeholder="Escribe aquí el contenido..." data-doc-id="{{ document.doc_id }}">{{ document.content }}</textarea>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
-    <script>
-        var socket = io.connect('http://' + document.domain + ':' + location.port);
-
-        var doc_id = "{{ document.doc_id }}";
-        socket.emit('join_document', {'doc_id': doc_id});
-
-        var contentArea = document.getElementById("content");
-
-        contentArea.addEventListener("input", function() {
-            socket.emit('edit_document', {'doc_id': doc_id, 'content': contentArea.value});
-        });
-
-        socket.on('update_document', function(data) {
-            contentArea.value = data.content;
-        });
-    </script>
-   
+    <script src="{{ url_for('static', filename='js/socket.js') }}"></script>
 {% endblock %}
